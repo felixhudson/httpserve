@@ -11,5 +11,5 @@ const pageend = `
 `
 
 func showimage(current string, next string) string {
-	return "<a href='" + next + "<img src='" + current + "'>"
+	return "<a href='" + next + " '><img src='" + current + "'></a>"
 }
