@@ -9,5 +9,5 @@ import (
 func main() {
 	p := http.Dir("/")
 	fs := http.FileServer(p)
-	http.Handle("/static", fs)
+	http.ListenAndServe("0.0.0.0:8888", fs)
 }
