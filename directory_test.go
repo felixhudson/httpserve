@@ -20,15 +20,15 @@ func Test_sort(t *testing.T) {
 }
 
 func Test_next(t *testing.T) {
-
-	foo := nextFile("/Users", "doesntexist")
+	files := []string{"first.txt", "seccond.txt"}
+	foo := nextFile("fake", files)
 	if foo != "" {
 		fmt.Println("failed test")
 		t.Fatal()
 	}
 
-	foo = nextFile("/Users", "Felix")
-	if foo != "Public" {
+	foo = nextFile(files[0], files)
+	if foo != "seccond.txt" {
 		fmt.Printf("foo: %v\n", foo)
 		fmt.Println("failed test")
 		t.Fatal()
@@ -37,5 +37,7 @@ func Test_next(t *testing.T) {
 
 func Test_glob(t *testing.T) {
 	files, _ := filepath.Glob("/*")
-	t.Log(files)
+	if len(files) <= 0 {
+		t.Fatal("got zero length files list")
+	}
 }

@@ -16,6 +16,7 @@ func myHandler(w http.ResponseWriter, req *http.Request) {
 		page := pagestart + showimage(req.URL.Path, "next.jpg") + pageend
 		fmt.Fprint(w, page)
 	} else {
+		fmt.Fprintf(w, NextTwoFiles("/"))
 		fmt.Printf("%v", w)
 		fmt.Printf("%v", req)
 	}

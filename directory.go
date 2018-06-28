@@ -15,17 +15,48 @@ func sortDir(path string) []string {
 	//return []string{"one.jpg", "two.jpg"}
 }
 
-func nextFile(current string, path string) string {
+func findNextFile(current string, path string) string {
 	sortfiles := sortDir(path)
+	return nextFile(current, sortfiles)
+}
+
+func nextFile(current string, files []string) string {
 	nextFile := -1
-	for k, v := range sortfiles {
+	for k, v := range files {
 		if v == current {
 			nextFile = k + 1
 			break
 		}
 	}
 	if nextFile > 0 {
-		return sortfiles[nextFile]
+		return files[nextFile]
 	}
 	return ""
+}
+
+func padZeros(input string, length int) string {
+	// find first number
+	start := 0
+	for k, v := range input {
+		if v == '0' {
+			start = k
+		}
+	}
+
+	return input[start:3]
+}
+
+func NaturalSort(files []string) []string {
+	//find the longest number string
+	//longest := 3
+
+	// append 0's to the length of the longest number
+	// sort by first key
+	// return the last
+	return []string{"foo"}
+}
+
+func NextTwoFiles(path string) string {
+	files := sortDir(path)
+	return files[0]
 }
