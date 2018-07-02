@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"path/filepath"
+	"strconv"
 	"testing"
 )
 
@@ -39,5 +40,27 @@ func Test_glob(t *testing.T) {
 	files, _ := filepath.Glob("/*")
 	if len(files) <= 0 {
 		t.Fatal("got zero length files list")
+	}
+}
+
+func Test_count_numbers(t *testing.T) {
+	text := "a"
+	expect := 0
+	result := countNumberChars(text)
+
+	if result != expect {
+		t.Fatal(text + " returned wrong count of " + strconv.Itoa(result) + "::")
+	}
+	text = "a1"
+	expect = 1
+	result = countNumberChars(text)
+	if result != expect {
+		t.Fatal(text + " returned wrong count of " + strconv.Itoa(result) + "::")
+	}
+	text = "a10"
+	expect = 2
+	result = countNumberChars(text)
+	if result != expect {
+		t.Fatal(text + " returned wrong count of " + strconv.Itoa(result) + "::")
 	}
 }

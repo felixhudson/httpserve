@@ -38,6 +38,7 @@ func myHandler(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+// File is the interface as needed in the base libraries
 type File interface {
 	io.Closer
 	io.Reader
@@ -118,5 +119,6 @@ func stuff() {
 	fmt.Println(os.Args)
 	cwd, _ := os.Getwd()
 	fmt.Println(cwd)
+	fmt.Println(filepath.Split(cwd))
 	fmt.Println("end of stuff!")
 }

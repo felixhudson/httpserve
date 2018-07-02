@@ -2,6 +2,7 @@ package main
 
 import (
 	"path/filepath"
+	"unicode"
 )
 
 func isGallery(path string) bool {
@@ -46,6 +47,7 @@ func padZeros(input string, length int) string {
 	return input[start:3]
 }
 
+// NaturalSort will sort how a human wants to
 func NaturalSort(files []string) []string {
 	//find the longest number string
 	//longest := 3
@@ -55,7 +57,23 @@ func NaturalSort(files []string) []string {
 	// return the last
 	return []string{"foo"}
 }
+func countNumberChars(filename string) int {
+	count, longest := 0, 0
+	for _, v := range filename {
+		if !unicode.IsDigit(v) {
+			count = 0
+		} else {
+			count++
+		}
 
+		if count > longest {
+			longest = count
+		}
+	}
+	return longest
+}
+
+// NextTwoFiles will return the next two files in a sorted directory
 func NextTwoFiles(path string) string {
 	files := sortDir(path)
 	return files[0]
