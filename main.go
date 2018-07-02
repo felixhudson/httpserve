@@ -119,6 +119,8 @@ func stuff() {
 	fmt.Println(os.Args)
 	cwd, _ := os.Getwd()
 	fmt.Println(cwd)
+	foo := padZeros("a1", 2)
+	fmt.Printf("%v", foo)
 	fmt.Println(filepath.Split(cwd))
 	fmt.Println("end of stuff!")
 }

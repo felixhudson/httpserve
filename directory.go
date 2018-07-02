@@ -38,33 +38,77 @@ func nextFile(current string, files []string) string {
 
 func padZeros(input string, length int) string {
 	// lets cheat by always having a non-number at the end of the string!
-	input = input + string("_")
+	// input = input + string("_")
 
 	// find first number
 	start := -1
 	result := make([]string, 0)
-	// strlength := len(input)
+	state := "other"
+	strlength := len(input)
 	for k, v := range input {
-		if unicode.IsDigit(v) {
-			if start == -1 {
-				start = k
+		if k == strlength-1 {
+			if state == "other" {
+				state = "otherend"
+			} else {
+				state = "numberend"
 			}
-		} else {
-			if start != -1 {
-				if k-start > length {
-					// insert the padding zeros
+		}
+
+		switch state {
+		// case "start":
+		// 	if unicode.IsDigit(v) {
+		// 		state = "number"
+		// 		start = k
+		// 	} else {
+		// 		state = "other"
+		// 		result = append(result, string(v))
+		// 	}
+		// a1a
+		// 012
+
+		case "number":
+			if !unicode.IsDigit(v) {
+				if k-start+1 < length {
 					result = append(result, string('0'))
 				}
-				// append the rest of the numeral
-				result = append(result, input[start:k])
+				result = append(result, input[start:k-1])
 				// reset the counts
-				start = -1
-				// continue
+				state = "other"
 			}
-			result = append(result, string(v))
+		case "other":
+			if unicode.IsDigit(v) {
+				state = "number"
+				start = k
+			} else {
+				result = append(result, string(v))
+			}
+		case "otherend":
+			if unicode.IsDigit(v) {
+				if k-start < length {
+					result = append(result, string('0'))
+				}
+				result = append(result, string(input[start:k+1]))
+
+			} else {
+				result = append(result, string(v))
+
+			}
+		case "numberend":
+			if unicode.IsDigit(v) {
+				if k-start < length {
+					result = append(result, string('0'))
+				}
+				result = append(result, string(input[start:k]))
+			} else {
+				if k-start < length {
+					result = append(result, string('0'))
+				}
+				result = append(result, string(input[start:k-1]))
+				result = append(result, string(v))
+			}
+
 		}
 	}
-
 	return strings.Join(result, "")
 }
 

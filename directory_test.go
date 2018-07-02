@@ -66,19 +66,19 @@ func Test_count_numbers(t *testing.T) {
 }
 func Test_pad(t *testing.T) {
 	text := "a1"
-	expect := "a01_"
+	expect := "a01"
 	result := padZeros(text, 2)
 	if result != expect {
 		t.Fatal(text + " returned wrong text of " + result + "::")
 	}
 	text = "a1a"
-	expect = "a01a_"
+	expect = "a01a"
 	result = padZeros(text, 2)
 	if result != expect {
 		t.Fatal(text + " returned wrong text of " + result + "::")
 	}
 	text = "a10a"
-	expect = "a10a_"
+	expect = "a10a"
 	result = padZeros(text, 2)
 	if result != expect {
 		t.Fatal(text + " returned wrong text of " + result + "::")
