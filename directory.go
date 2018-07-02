@@ -2,6 +2,7 @@ package main
 
 import (
 	"path/filepath"
+	"strings"
 	"unicode"
 )
 
@@ -36,15 +37,35 @@ func nextFile(current string, files []string) string {
 }
 
 func padZeros(input string, length int) string {
+	// lets cheat by always having a non-number at the end of the string!
+	input = input + string("_")
+
 	// find first number
-	start := 0
+	start := -1
+	result := make([]string, 0)
+	// strlength := len(input)
 	for k, v := range input {
-		if v == '0' {
-			start = k
+		if unicode.IsDigit(v) {
+			if start == -1 {
+				start = k
+			}
+		} else {
+			if start != -1 {
+				if k-start > length {
+					// insert the padding zeros
+					result = append(result, string('0'))
+				}
+				// append the rest of the numeral
+				result = append(result, input[start:k])
+				// reset the counts
+				start = -1
+				// continue
+			}
+			result = append(result, string(v))
 		}
 	}
 
-	return input[start:3]
+	return strings.Join(result, "")
 }
 
 // NaturalSort will sort how a human wants to

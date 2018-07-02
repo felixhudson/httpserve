@@ -64,3 +64,23 @@ func Test_count_numbers(t *testing.T) {
 		t.Fatal(text + " returned wrong count of " + strconv.Itoa(result) + "::")
 	}
 }
+func Test_pad(t *testing.T) {
+	text := "a1"
+	expect := "a01_"
+	result := padZeros(text, 2)
+	if result != expect {
+		t.Fatal(text + " returned wrong text of " + result + "::")
+	}
+	text = "a1a"
+	expect = "a01a_"
+	result = padZeros(text, 2)
+	if result != expect {
+		t.Fatal(text + " returned wrong text of " + result + "::")
+	}
+	text = "a10a"
+	expect = "a10a_"
+	result = padZeros(text, 2)
+	if result != expect {
+		t.Fatal(text + " returned wrong text of " + result + "::")
+	}
+}
