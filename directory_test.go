@@ -90,3 +90,16 @@ func Test_pad(t *testing.T) {
 		t.Fatal(text + " returned wrong text of " + result + "::")
 	}
 }
+
+func Test_natural_sort(t *testing.T) {
+	files := []string{"01.txt", "11.txt", "02.txt"}
+	expect := []string{"01.txt", "02.txt", "11.txt"}
+	result := NaturalSort(files)
+	if len(result) != len(expect) {
+		t.Fatal("Natural sort lengths dont match " + strconv.Itoa(len(result)) + ":" + strconv.Itoa(len(expect)))
+	}
+	// if result != expect {
+	// 	t.Fatal("Expected:" + expect + " Got " + result + "::")
+	// }
+
+}

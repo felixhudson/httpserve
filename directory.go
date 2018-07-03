@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"path/filepath"
+	"sort"
 	"strings"
 	"unicode"
 )
@@ -55,17 +57,6 @@ func padZeros(input string, length int) string {
 		}
 
 		switch state {
-		// case "start":
-		// 	if unicode.IsDigit(v) {
-		// 		state = "number"
-		// 		start = k
-		// 	} else {
-		// 		state = "other"
-		// 		result = append(result, string(v))
-		// 	}
-		// a1a
-		// 012
-
 		case "number":
 			if !unicode.IsDigit(v) {
 				if k-start < length {
@@ -113,12 +104,27 @@ func padZeros(input string, length int) string {
 // NaturalSort will sort how a human wants to
 func NaturalSort(files []string) []string {
 	//find the longest number string
-	//longest := 3
+	longest := 0
+	temp := 0
+	for _, v := range files {
+		temp = countNumberChars(v)
+		if temp > longest {
+			longest = temp
+		}
+	}
 
 	// append 0's to the length of the longest number
+	paddedfilenames := make([]string, 0)
+	for _, v := range files {
+		paddedfilenames = append(paddedfilenames, padZeros(v, longest))
+	}
+	sorted := sort.StringSlice(paddedfilenames)
+	for _, v := range sorted {
+		fmt.Printf("%v", v)
+	}
 	// sort by first key
 	// return the last
-	return []string{"foo"}
+	return sorted
 }
 func countNumberChars(filename string) int {
 	count, longest := 0, 0
