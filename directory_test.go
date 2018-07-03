@@ -83,4 +83,10 @@ func Test_pad(t *testing.T) {
 	if result != expect {
 		t.Fatal(text + " returned wrong text of " + result + "::")
 	}
+	text = "a1a1"
+	expect = "a01a01"
+	result = padZeros(text, 2)
+	if result != expect {
+		t.Fatal(text + " returned wrong text of " + result + "::")
+	}
 }

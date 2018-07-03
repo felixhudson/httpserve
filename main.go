@@ -119,8 +119,8 @@ func stuff() {
 	fmt.Println(os.Args)
 	cwd, _ := os.Getwd()
 	fmt.Println(cwd)
-	foo := padZeros("a1", 2)
-	fmt.Printf("%v", foo)
+	foo := padZeros("a1a1", 2)
+	fmt.Printf("pad zeros output:%v\n", foo)
 	fmt.Println(filepath.Split(cwd))
 	fmt.Println("end of stuff!")
 }

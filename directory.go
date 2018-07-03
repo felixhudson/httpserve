@@ -46,7 +46,7 @@ func padZeros(input string, length int) string {
 	state := "other"
 	strlength := len(input)
 	for k, v := range input {
-		if k == strlength-1 {
+		if k+1 == strlength {
 			if state == "other" {
 				state = "otherend"
 			} else {
@@ -68,10 +68,11 @@ func padZeros(input string, length int) string {
 
 		case "number":
 			if !unicode.IsDigit(v) {
-				if k-start+1 < length {
+				if k-start < length {
 					result = append(result, string('0'))
 				}
-				result = append(result, input[start:k-1])
+				result = append(result, input[start:k])
+				result = append(result, string(v))
 				// reset the counts
 				state = "other"
 			}
@@ -84,15 +85,12 @@ func padZeros(input string, length int) string {
 			}
 		case "otherend":
 			if unicode.IsDigit(v) {
-				if k-start < length {
-					result = append(result, string('0'))
-				}
-				result = append(result, string(input[start:k+1]))
-
-			} else {
-				result = append(result, string(v))
+				// we have reached a single digit at the end of the input
+				result = append(result, string('0'))
 
 			}
+			result = append(result, string(v))
+
 		case "numberend":
 			if unicode.IsDigit(v) {
 				if k-start < length {
@@ -103,7 +101,7 @@ func padZeros(input string, length int) string {
 				if k-start < length {
 					result = append(result, string('0'))
 				}
-				result = append(result, string(input[start:k-1]))
+				result = append(result, string(input[start:k]))
 				result = append(result, string(v))
 			}
 
