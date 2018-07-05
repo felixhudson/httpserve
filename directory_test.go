@@ -91,15 +91,35 @@ func Test_pad(t *testing.T) {
 	}
 }
 
+func Test_hash_sort(t *testing.T) {
+	// give a map of [string]string
+	data := make(map[string]string)
+	data["01.txt"] = "1.txt"
+	data["11.txt"] = "11.txt"
+	data["02.txt"] = "2.txt"
+	result := sortmap(data)
+	expect := []string{"1.txt", "2.txt", "11.txt"}
+	for k, v := range result {
+
+		if v != expect[k] {
+			t.Fatal("Expected:" + expect[k] + " Got " + v + "::")
+		}
+	}
+
+}
+
 func Test_natural_sort(t *testing.T) {
-	files := []string{"01.txt", "11.txt", "02.txt"}
-	expect := []string{"01.txt", "02.txt", "11.txt"}
+	files := []string{"1.txt", "11.txt", "2.txt"}
+	expect := []string{"1.txt", "2.txt", "11.txt"}
 	result := NaturalSort(files)
 	if len(result) != len(expect) {
 		t.Fatal("Natural sort lengths dont match " + strconv.Itoa(len(result)) + ":" + strconv.Itoa(len(expect)))
 	}
-	// if result != expect {
-	// 	t.Fatal("Expected:" + expect + " Got " + result + "::")
-	// }
+	for k, v := range result {
+
+		if v != expect[k] {
+			t.Fatal("Expected:" + expect[k] + " Got " + v + "::")
+		}
+	}
 
 }

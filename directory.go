@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -114,18 +113,31 @@ func NaturalSort(files []string) []string {
 	}
 
 	// append 0's to the length of the longest number
-	paddedfilenames := make([]string, 0)
+	paddedfilenames := make(map[string]string)
 	for _, v := range files {
-		paddedfilenames = append(paddedfilenames, padZeros(v, longest))
-	}
-	sorted := sort.StringSlice(paddedfilenames)
-	for _, v := range sorted {
-		fmt.Printf("%v", v)
+		//paddedfilenames = append(paddedfilenames, padZeros(v, longest))
+		paddedfilenames[padZeros(v, longest)] = v
+
 	}
 	// sort by first key
+	sorted := sortmap(paddedfilenames)
 	// return the last
 	return sorted
 }
+
+func sortmap(data map[string]string) []string {
+	var keys []string
+	var result []string
+	for k, _ := range data {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, v := range keys {
+		result = append(result, data[v])
+	}
+	return result
+}
+
 func countNumberChars(filename string) int {
 	count, longest := 0, 0
 	for _, v := range filename {
